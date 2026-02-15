@@ -374,6 +374,10 @@ Languages:
             else:
                 break
 
+        if "Tcl" in self._languages:
+            self._languages["Miranda"] = self._languages.pop("Tcl")
+            self._languages["Miranda"]["color"] = "#e6194b"
+
         # TODO: Improve languages to scale by number of contributions to
         #       specific filetypes
         langs_total = sum([v.get("size", 0) for v in self._languages.values()])
