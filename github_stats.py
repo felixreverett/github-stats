@@ -374,9 +374,22 @@ Languages:
             else:
                 break
 
-        if "Tcl" in self._languages:
-            self._languages["Miranda"] = self._languages.pop("Tcl")
-            self._languages["Miranda"]["color"] = "#e6194b"
+        # custom override to merge languages into Miranda
+        proxy_langs = ["Tcl", "M"]
+
+        for lang in proxy_langs:
+            if lang in self._languages:
+                lang_data = self._languages.pop(lang)
+
+                if "Miranda" not in self._languages:
+                    self._languages["Miranda"] = {
+                        "size": 0,
+                        "occurrences": 0,
+                        "color": "#e6194b"
+                    }
+        
+                self._languages["Miranda"]["size"] += lang_data.get("size", 0)
+                self._languages["Miranda"]["occurrences"] += lang_data.get("occurrences", 0)
 
         # TODO: Improve languages to scale by number of contributions to
         #       specific filetypes
