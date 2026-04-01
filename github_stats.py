@@ -385,7 +385,7 @@ Languages:
                     self._languages["Miranda"] = {
                         "size": 0,
                         "occurrences": 0,
-                        "color": "#e6194b"
+                        "color": "#ec4899"
                     }
         
                 self._languages["Miranda"]["size"] += lang_data.get("size", 0)
@@ -396,6 +396,17 @@ Languages:
         langs_total = sum([v.get("size", 0) for v in self._languages.values()])
         for k, v in self._languages.items():
             v["prop"] = 100 * (v.get("size", 0) / langs_total)
+
+        colour_overrides = {
+            "Python": "#1B5E20",
+            "C++": "#A855F7",
+            "TypeScript": "#3178C6",
+            "GLSL": "#475569"
+        }
+
+        for lang, custom_color in colour_overrides.items():
+            if lang in self._languages:
+                self._languages[lang]["color"] = custom_color
 
     @property
     async def name(self) -> str:
